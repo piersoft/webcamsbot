@@ -154,9 +154,7 @@ $shortLink = get_object_vars($json);
 	$alert4 = "\nVai alla WebCam: ".$shortLink['id'];
 }
 			if ($diva3[$i]!=NULL){
-			//  $alert.= "\nCoordinate: ".$diva9[$i].",".$diva10[$i];
-
-				$longUrl = "http://www.openstreetmap.org/?mlat=".$diva3[$i]."&mlon=".$diva4[$i]."#map=19/".$diva3[$i]."/".$diva4[$i];
+			$longUrl = "http://www.openstreetmap.org/?mlat=".$diva3[$i]."&mlon=".$diva4[$i]."#map=19/".$diva3[$i]."/".$diva4[$i];
 
 				$apiKey = API;
 
@@ -202,7 +200,6 @@ $shortLink = get_object_vars($json);
 			exit;
 
 		}
-//elseif($text !=null)
 
 		else{
 		//	$text="torino";
@@ -229,23 +226,10 @@ $shortLink = get_object_vars($json);
 					$lon .= $div->nodeValue;
 			}
 
-	//		echo $lat.",".$lon;
-			/*
-			 $reply = "Hai selezionato un comando non previsto. Ricordati che devi prima inviare la tua posizione cliccando sulla graffetta (📎) ";
-			 $content = array('chat_id' => $chat_id, 'text' => $reply);
-			 $telegram->sendMessage($content);
-
-			 $log=$today. ";wrong command sent;" .$chat_id. "\n";
-			 */
 
 			 $url ="http://api.webcams.travel/rest?method=wct.webcams.list_nearby&devid=".APIT."&lat=".$lat;
 		  	$url .="&lng=".$lon."&unit=km&radius=".AROUND;
-
-			//	$content = array('chat_id' => $chat_id, 'text' => $url,'disable_web_page_preview'=>true);
-
-			//	$telegram->sendMessage($content);
-
-		 			$html = file_get_contents($url);
+ 				$html = file_get_contents($url);
 		 	//		$html=utf8_decode($html);
 		 			$doc = new DOMDocument;
 		 			$doc->loadHTML($html);
@@ -308,8 +292,6 @@ $shortLink = get_object_vars($json);
 		 			curl_exec($ch);
 		 			curl_close($ch);
 		 			fclose($fp);
-		 		//$alert = "\n".$diva5[$i];
-		 //		$img = curl_file_create($urlfile[$i],'image/png');
 		 		$alert1 = "\n".$diva[$i];
 		 		$alert2 = "\nLocalità: ".$diva2[$i];
 		 		$alert3 = "\nAggiornamento: ".date('d-m-Y H:i:s',$diva6[$i]);
@@ -340,14 +322,10 @@ $shortLink = get_object_vars($json);
 		 curl_close($curlObj);
 		 //  $reply="Puoi visualizzarlo su :\n".$json->id;
 		 $shortLink = get_object_vars($json);
-		 //return $json->id;
-		 //	$alert .="\nMappa: ".$shortLink['id'];
 		 	$alert4 = "\nVai alla WebCam: ".$shortLink['id'];
 		 }
 		 			if ($diva3[$i]!=NULL){
-		 			//  $alert.= "\nCoordinate: ".$diva9[$i].",".$diva10[$i];
-
-		 				$longUrl = "http://www.openstreetmap.org/?mlat=".$diva3[$i]."&mlon=".$diva4[$i]."#map=19/".$diva3[$i]."/".$diva4[$i];
+	 				$longUrl = "http://www.openstreetmap.org/?mlat=".$diva3[$i]."&mlon=".$diva4[$i]."#map=19/".$diva3[$i]."/".$diva4[$i];
 
 		 				$apiKey = API;
 
@@ -389,7 +367,6 @@ $shortLink = get_object_vars($json);
 
 			 $this->create_keyboard($telegram,$chat_id);
 
-
 	}
 
 
@@ -399,15 +376,11 @@ $shortLink = get_object_vars($json);
 // Crea la tastiera
 function create_keyboard($telegram, $chat_id)
  {
-//	 $forcehide=$telegram->buildKeyBoardHide(true);
-//	 $content = array('chat_id' => $chat_id, 'text' => "Invia la tua posizione cliccando sulla graffetta (📎) in basso e, se vuoi, puoi cliccare due volte sulla mappa e spostare il Pin Rosso in un luogo specifico", 'reply_markup' =>$forcehide);
-//	 $telegram->sendMessage($content);
 	 $option = array(["Vicino a te","Più popolari"],["Info"]);
  	$keyb = $telegram->buildKeyBoard($option, $onetime=false);
  	$content = array('chat_id' => $chat_id, 'reply_markup' => $keyb, 'text' => "[seleziona 'Più popolari', oppure per vedere le Webcam più vicine a te, clicca sulla graffetta \xF0\x9F\x93\x8E e poi 'posizione'. Infine se vuoi puoi digitare anche il nome della località ]");
  	$telegram->sendMessage($content);
  }
-
 
 
 
@@ -428,12 +401,7 @@ function location_manager($telegram,$user_id,$chat_id,$location)
 
 	 			$xpa    = new DOMXPath($doc);
 
-	 	//	$count=3;
-	 		//	echo $count;
-
-
-	 			//echo $count;
-	 			$divs   = $xpa->query('//title');
+ 				$divs   = $xpa->query('//title');
 	 			$divs1   = $xpa->query('//webcam/url');
 	 			$divs2   = $xpa->query('//webcam/city');
 	 			$divs3   = $xpa->query('//latitude');
@@ -482,17 +450,14 @@ function location_manager($telegram,$user_id,$chat_id,$location)
 				$urlfile=[];
 	 		for ($i=0;$i<$count;$i++){
 				$ch = curl_init($diva5[$i]);
-		//		array_push($urlfile,"img/temp".$i.".png");
-				$urlfile[$i] ="img/temp".$i.".png";
+	  		$urlfile[$i] ="img/temp".$i.".png";
 				$fp = fopen($urlfile[$i], 'wb');
 				curl_setopt($ch, CURLOPT_FILE, $fp);
 				curl_setopt($ch, CURLOPT_HEADER, 0);
 				curl_exec($ch);
 				curl_close($ch);
 				fclose($fp);
-	  	//$alert = "\n".$diva5[$i];
-	//		$img = curl_file_create($urlfile[$i],'image/png');
-	 		$alert1 = "\n".$diva[$i];
+			$alert1 = "\n".$diva[$i];
 	 		$alert2 = "\nLocalità: ".$diva2[$i];
 	 		$alert3 = "\nAggiornamento: ".date('d-m-Y H:i:s',$diva6[$i]);
 
@@ -520,14 +485,10 @@ if ($diva1[$i]!=NULL){
 	$json = json_decode($response);
 
 	curl_close($curlObj);
-	//  $reply="Puoi visualizzarlo su :\n".$json->id;
 	$shortLink = get_object_vars($json);
-	//return $json->id;
-//	$alert .="\nMappa: ".$shortLink['id'];
-		$alert4 = "\nVai alla WebCam: ".$shortLink['id'];
+	$alert4 = "\nVai alla WebCam: ".$shortLink['id'];
 }
 	 	  	if ($diva3[$i]!=NULL){
-	 	  	//  $alert.= "\nCoordinate: ".$diva9[$i].",".$diva10[$i];
 
 	 	  	  $longUrl = "http://www.openstreetmap.org/?mlat=".$diva3[$i]."&mlon=".$diva4[$i]."#map=19/".$diva3[$i]."/".$diva4[$i];
 
@@ -552,10 +513,8 @@ if ($diva1[$i]!=NULL){
 	 	  	  $json = json_decode($response);
 
 	 	  	  curl_close($curlObj);
-	 	  	  //  $reply="Puoi visualizzarlo su :\n".$json->id;
 	 	  	  $shortLink = get_object_vars($json);
-	 	  	  //return $json->id;
-	 	  	  $alert5 ="\nMappa: ".$shortLink['id'];
+	 		  $alert5 ="\nMappa: ".$shortLink['id'];
 	 	  	  }
 	 				$alert6 = "\n\n___________\n\n";
 					$img = curl_file_create($urlfile[$i],'image/png');
@@ -567,27 +526,8 @@ if ($diva1[$i]!=NULL){
 
 	 	  }
 
-/*
-			$chunks = str_split($alert, self::MAX_LENGTH);
-		//	$chunksp = str_split($urlfile, self::MAX_LENGTH);
-				$p=0;
-				foreach($chunks as $chunk) {
-		    $forcehide=$telegram->buildForceReply(true);
-				if (strpos($chunk,'jpg') !== false){
-					$img = curl_file_create($urlfile[$p],'image/png');
-					$content1 = array('chat_id' => $chat_id, 'photo' => $img);
-					$telegram->sendPhoto($content1);
-					$p++;
-				}
-				$content = array('chat_id' => $chat_id, 'text' => $chunk." ".$urlfile[$p],'disable_web_page_preview'=>true);
-				$telegram->sendMessage($content);
-
-			}
-*/
 				$this->create_keyboard($telegram,$chat_id);
 
-	//			$content = array('chat_id' => $chat_id, 'text' => "Invia la tua posizione tramite la graffetta (📎)");
-	//				$telegram->sendMessage($content);
 	}
 
 
