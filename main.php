@@ -239,7 +239,7 @@ $shortLink = get_object_vars($json);
 			 */
 
 			 $url ="http://api.webcams.travel/rest?method=wct.webcams.list_nearby&devid=".APIT."&lat=".$lat;
-		  	$url .="&lng=".$lon."&unit=km&radius=15";
+		  	$url .="&lng=".$lon."&unit=km&radius=".AROUND;
 
 			//	$content = array('chat_id' => $chat_id, 'text' => $url,'disable_web_page_preview'=>true);
 
@@ -419,7 +419,7 @@ function location_manager($telegram,$user_id,$chat_id,$location)
 			$response=$telegram->getData();
 			$count=0;
 	 	$url ="http://api.webcams.travel/rest?method=wct.webcams.list_nearby&devid=".APIT."&lat=".$lat;
-	 	$url .="&lng=".$lon."&unit=km&radius=15";
+	 	$url .="&lng=".$lon."&unit=km&radius=".AROUND;
 
 	 			$html = file_get_contents($url);
 	 	//		$html=utf8_decode($html);
